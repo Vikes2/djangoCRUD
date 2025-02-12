@@ -1,0 +1,24 @@
+<form method="post" class="form-container" enctype="multipart/form-data">
+    <label for="tenant-header">Tenant</label>
+    <input type="text" name="tenant" id="tenant-header" placeholder="Enter Tenant">
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const tenantValue = document.querySelector('#tenant-header').value;
+        if (tenantValue) {
+            const headers = new Headers();
+            headers.append('tenant', tenantValue);
+
+            fetch('/api/mymodel/', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({ /* JSON data */ }),
+            })
+            .then(response => response.json())
+            .then(data => console.log(data));
+        }
+    });
+</script>
